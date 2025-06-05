@@ -9,6 +9,7 @@ import { getCookie } from 'cookies-next';
 import Loading from '@/components/Loading';
 import Modal from '@/components/Modal';
 import Toast from '@/components/Toast';
+import { useRouter } from 'next/navigation';
 
 interface BookingCardProps {
   idBooking: string;
@@ -33,6 +34,7 @@ export default function BookingCard({
 }: {
   idBooking: string;
 }) {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [showUserModal, setShowUserModal] = useState(false);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
@@ -177,6 +179,10 @@ export default function BookingCard({
     }
   };
 
+  const handlePlaceClick = () => {
+    router.push(`/detail?idBooking=${idBooking}`);
+  };
+
   if (isLoading) {
     return (
       <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-md mx-auto">
@@ -198,7 +204,10 @@ export default function BookingCard({
       {/* Content section */}
       <div className="p-4">
         <div className="flex justify-between items-start mb-3">
-          <h3 className="font-semibold text-lg text-sky-700">
+          <h3 
+            className="font-semibold text-lg text-blue-700 cursor-pointer hover:text-blue-900 hover:underline"
+            onClick={handlePlaceClick}
+          >
             {data.placeName || `Địa điểm #${data.idPlace}`}
           </h3>
           <span className={`px-2 py-1 rounded-full text-xs font-medium ${data.status === "CONFIRMED" ? 'bg-green-100 text-green-800' :
