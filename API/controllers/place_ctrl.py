@@ -15,9 +15,9 @@ def get_places(db: Session = Depends(get_db), current_user = Depends(get_current
     return place_repo.get_places(db, skip, limit)
 
 @router.get("/places", response_model=place_schema.PlaceResponse)
-def get_place_by_id(idPlace: str, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
-    if not current_user:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
+def get_place_by_id(idPlace: str, db: Session = Depends(get_db)):
+    # if not current_user:
+    #     raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
     
     place = place_repo.get_place_by_id(db, idPlace)
     if place is None:

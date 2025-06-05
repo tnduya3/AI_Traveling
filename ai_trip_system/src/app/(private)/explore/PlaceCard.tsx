@@ -1,5 +1,7 @@
 import React from 'react'
 import { FaList, FaMap, FaStar, FaMapMarkerAlt } from "react-icons/fa";
+import { useRouter } from 'next/navigation';
+import { getCookie } from 'cookies-next';
 
 
 interface Place {
@@ -15,6 +17,10 @@ interface Place {
 }
 
 export default function PlaceCard({ place }: { place: Place }) {
+  const router = useRouter();
+  const handlePlaceClick = () => {
+    router.push(`/detail?idPlace=${place.idPlace}`);
+  };
   return (
     <div className="bg-indigo-200 border rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer">
       <div className="p-4">
@@ -27,31 +33,31 @@ export default function PlaceCard({ place }: { place: Place }) {
               className="w-20 h-20 object-cover rounded-lg"
             />
           </div>
-          
+
           {/* Content */}
           <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-semibold text-gray-900 truncate">
+            <h3 className="text-lg font-semibold text-gray-900 truncate"
+              onClick={handlePlaceClick}>
               {place.name}
             </h3>
-            
+
             <div className="flex items-center mt-1 text-sm text-gray-600">
               <FaMapMarkerAlt className="w-3 h-3 mr-1" />
               <span className="truncate">
                 {place.city}, {place.province}
               </span>
             </div>
-            
+
             {place.rating > 0 && (
               <div className="flex items-center mt-2">
                 <div className="flex items-center">
                   {[...Array(5)].map((_, i) => (
                     <FaStar
                       key={i}
-                      className={`w-3 h-3 ${
-                        i < Math.floor(place.rating)
+                      className={`w-3 h-3 ${i < Math.floor(place.rating)
                           ? "text-yellow-400"
                           : "text-gray-300"
-                      }`}
+                        }`}
                     />
                   ))}
                 </div>
@@ -60,7 +66,7 @@ export default function PlaceCard({ place }: { place: Place }) {
                 </span>
               </div>
             )}
-            
+
             <p className="text-sm text-gray-600 mt-2 line-clamp-2">
               {place.description}
             </p>

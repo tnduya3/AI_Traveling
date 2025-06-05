@@ -14,7 +14,7 @@ def get_bookings(db: Session = Depends(get_db), current_user = Depends(get_curre
     if not current_user:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
 
-    return booking_repo.get_bookings_by_user(db, current_user.idUser)
+    return booking_repo.get_bookings(db)
 
 @router.get("/bookings", response_model=BookingResponse)
 def get_booking_by_id(idBooking: str, db: Session = Depends(get_db), current_user = Depends(get_current_user)):

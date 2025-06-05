@@ -43,21 +43,21 @@ export default function ExplorePage() {
   const normalizePovinceName = (province: string): string => {
     // Convert to lowercase for case-insensitive comparison
     const lowerProvince = province.toLowerCase();
-    
+
     // Remove common prefixes
     let normalized = lowerProvince
       .replace(/^tỉnh\s+/i, '')    // Remove "tỉnh" prefix
       .replace(/^thành phố\s+/i, '')  // Remove "thành phố" prefix
       .replace(/^tp\.\s*/i, '')    // Remove "tp." prefix
       .trim();
-      
+
     // Optional: Map to standard names if needed
     const provinceMap: Record<string, string> = {
       'quảng nam': 'Quảng Nam',
       'quảng ninh': 'Quảng Ninh',
       // Add more mappings as needed
     };
-    
+
     return provinceMap[normalized] || province;
   };
 
@@ -65,7 +65,7 @@ export default function ExplorePage() {
     setLoading(true);
     const normalizedProvince = normalizePovinceName(province);
     console.log(`Original: ${province}, Normalized: ${normalizedProvince}`);
-    
+
     const token = getCookie("token");
     try {
       // Gọi API để lấy danh sách địa điểm theo tỉnh
@@ -99,6 +99,10 @@ export default function ExplorePage() {
     setPlaces([]);
   };
 
+  const handlePlaceClick = () => {
+    router.push(`/detail?idPlace=${places[0].idPlace}`);
+  };
+
   return (
     <div className="h-screen flex flex-col m-3 rounded-2xl shadow-xl filter backdrop-blur-md bg-[rgba(0, 0, 0, 0.1)] border-2 border-cyan-950">
       {/* Header */}
@@ -107,7 +111,7 @@ export default function ExplorePage() {
           <FaCompass className="w-6 h-6 text-gray-800 animate-pulse" />
           <h2 className="text-xl font-semibold text-shadow-cyan-200">Khám phá địa điểm</h2>
         </div>
-        
+
         {showPlaces && (
           <button
             onClick={handleBackToMap}
@@ -121,10 +125,9 @@ export default function ExplorePage() {
 
       <div className="flex-1 flex " >
         {/* Map Section */}
-        <div className={`transition-all duration-300 ${
-          showPlaces ? "w-2/3" : "w-full"
-        }`}>
-          <MapEx 
+        <div className={`transition-all duration-300 ${showPlaces ? "w-2/3" : "w-full"
+          }`}>
+          <MapEx
             onProvinceSelect={handleProvinceSelect}
             className="h-full overflow-hidden rounded-2xl shadow-lg"
           />
@@ -152,7 +155,7 @@ export default function ExplorePage() {
             <div className="flex-1 overflow-y-auto filter backdrop-blur-3xl relative scrollbar-thin scrollbar-thumb-cyan-500 scrollbar-track-gray-200 scroll-smooth">
               {/* Fade effect at top */}
               <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none"></div>
-              
+
               {loading ? (
                 <div className="flex items-center justify-center h-32">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-500"></div>
@@ -166,12 +169,12 @@ export default function ExplorePage() {
               ) : (
                 <div className="p-4 space-y-4">
                   {places.map((place, index) => (
-                    <div 
-                      key={place.idPlace} 
+                    <div
+                      key={place.idPlace}
                       className="transform transition-all duration-300 hover:translate-y-[-2px] hover:shadow-md"
-                      style={{ 
-                        animationDelay: `${index * 100}ms`, 
-                        animation: 'fadeInUp 0.5s ease forwards' 
+                      style={{
+                        animationDelay: `${index * 100}ms`,
+                        animation: 'fadeInUp 0.5s ease forwards'
                       }}
                     >
                       <PlaceCard place={place} />
@@ -179,7 +182,7 @@ export default function ExplorePage() {
                   ))}
                 </div>
               )}
-              
+
               {/* Fade effect at bottom */}
               <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none"></div>
             </div>
