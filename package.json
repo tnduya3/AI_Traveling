@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "cookies-next": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "react-toastify": "^11.0.5"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/jwt-decode": "^2.2.1"
+  }
+}

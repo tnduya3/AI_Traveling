@@ -1,0 +1,48 @@
+{
+  "name": "ai_trip_system",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.2",
+    "@heroicons/react": "^2.2.0",
+    "@react-oauth/google": "^0.12.2",
+    "@supabase/supabase-js": "^2.49.4",
+    "animejs": "^4.0.2",
+    "cookies-next": "^5.1.0",
+    "framer-motion": "^12.6.3",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "leaflet": "^1.9.4",
+    "next": "^15.2.4",
+    "next-auth": "^4.24.11",
+    "pg": "^8.16.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-icons": "^5.5.0",
+    "react-leaflet": "^5.0.0",
+    "react-modal-image": "^2.6.0",
+    "react-toastify": "^11.0.5",
+    "swr": "^2.3.3"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/leaflet": "^1.9.17",
+    "@types/node": "^20",
+    "@types/pg": "^8.15.2",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/react-modal-image": "^2.6.4",
+    "eslint": "^9",
+    "eslint-config-next": "15.2.4",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
