@@ -89,7 +89,7 @@ export const aiRecommendationService = {
 
     console.log('Fetching recommendations for user:', userId);
     
-    const response = await fetch(`http://127.0.0.1:8000/api/v1/ai_recs/${userId}`, {
+    const response = await fetch(`http://127.0.0.1:8000/api/v1/ai_recs/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

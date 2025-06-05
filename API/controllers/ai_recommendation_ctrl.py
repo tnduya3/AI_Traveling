@@ -26,12 +26,12 @@ def get_ai_rec_by_id(idAIRec: str, db: Session = Depends(get_db), current_user =
     
     return ai_rec
 
-@router.get("/ai_recs/{idUser}", response_model=list[ai_recommendation_schema.AIRecResponse])
-def get_ai_rec_by_user(idUser: str, db: Session = Depends(get_db), current_user = Depends(get_current_user), skip: int = 0, limit: int = 100):
+@router.get("/ai_recs/user", response_model=list[ai_recommendation_schema.AIRecResponse])
+def get_ai_rec_by_user(db: Session = Depends(get_db), current_user = Depends(get_current_user), skip: int = 0, limit: int = 100):
     if not current_user:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
-    
-    ai_recs = ai_recommendation_repo.get_aiRec_by_user(db, idUser, skip, limit)
+
+    ai_recs = ai_recommendation_repo.get_aiRec_by_user(db, current_user.idUser, skip, limit)
     if ai_recs == []:
         raise HTTPException(404, "AI recommendation not found")
     
