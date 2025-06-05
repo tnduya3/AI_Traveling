@@ -242,11 +242,10 @@ const Header = () => {
       )}
 
       <header
-        className={`bg-gradient-to-r from-[#000080] to-[#00BFFF] flex items-center h-[80px] fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
+        className={`bg-gradient-to-r from-[#000080] to-[#00BFFF] flex items-center h-[80px] fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
             ? "shadow-[0_4px_10px_rgba(0,0,0,0.5)] border-b border-black/30"
             : ""
-        } ${isNavigating ? "opacity-90" : ""}`}
+          } ${isNavigating ? "opacity-90" : ""}`}
       >
         {/* Navigation Loading Indicator */}
         {isNavigating && (
@@ -294,11 +293,10 @@ const Header = () => {
                 aria-label="About"
               >
                 <span
-                  className={`text-lg font-medium ${
-                    activeSection === "about"
+                  className={`text-lg font-medium ${activeSection === "about"
                       ? "text-[#FFD700]"
                       : "text-white hover:opacity-70"
-                  }`}
+                    }`}
                 >
                   About
                 </span>
@@ -310,11 +308,10 @@ const Header = () => {
                 aria-label="Features"
               >
                 <span
-                  className={`text-lg font-medium ${
-                    activeSection === "features"
+                  className={`text-lg font-medium ${activeSection === "features"
                       ? "text-[#FFD700]"
                       : "text-white hover:opacity-70"
-                  }`}
+                    }`}
                 >
                   Features
                 </span>
@@ -326,11 +323,10 @@ const Header = () => {
                 aria-label="Contact"
               >
                 <span
-                  className={`text-lg font-medium ${
-                    activeSection === "contact"
+                  className={`text-lg font-medium ${activeSection === "contact"
                       ? "text-[#FFD700]"
                       : "text-white hover:opacity-70"
-                  }`}
+                    }`}
                 >
                   Contact
                 </span>
@@ -343,11 +339,10 @@ const Header = () => {
             <div className="hidden md:flex items-center justify-center mx-auto gap-20">
               <div
                 onClick={(e) => handleNavigation("/home", e)}
-                className={`flex items-center no-underline transition-all duration-300 cursor-pointer relative ${
-                  isActiveRoute("/home")
+                className={`flex items-center no-underline transition-all duration-300 cursor-pointer relative ${isActiveRoute("/home")
                     ? "text-[#FFD700] scale-105"
                     : "text-white hover:opacity-70 hover:scale-105"
-                }`}
+                  }`}
               >
                 <span className="text-lg font-medium relative">
                   Trang chủ
@@ -359,11 +354,10 @@ const Header = () => {
 
               <div
                 onClick={(e) => handleNavigation("/trips", e)}
-                className={`flex items-center no-underline transition-all duration-300 cursor-pointer relative ${
-                  isActiveRoute("/trips")
+                className={`flex items-center no-underline transition-all duration-300 cursor-pointer relative ${isActiveRoute("/trips")
                     ? "text-[#FFD700] scale-105"
                     : "text-white hover:opacity-70 hover:scale-105"
-                }`}
+                  }`}
               >
                 <span className="text-lg font-medium relative">
                   Lộ trình AI
@@ -373,11 +367,10 @@ const Header = () => {
                 </span>
               </div>              <div
                 onClick={(e) => handleNavigation("/explore", e)}
-                className={`flex items-center no-underline transition-all duration-300 cursor-pointer relative ${
-                  isActiveRoute("/explore")
+                className={`flex items-center no-underline transition-all duration-300 cursor-pointer relative ${isActiveRoute("/explore")
                     ? "text-[#FFD700] scale-105"
                     : "text-white hover:opacity-70 hover:scale-105"
-                }`}
+                  }`}
               >
                 <span className="text-lg font-medium relative">
                   Khám phá
@@ -389,11 +382,10 @@ const Header = () => {
 
               <div
                 onClick={(e) => handleNavigation("/ai-recommendations", e)}
-                className={`flex items-center no-underline transition-all duration-300 cursor-pointer relative ${
-                  isActiveRoute("/ai-recommendations")
+                className={`flex items-center no-underline transition-all duration-300 cursor-pointer relative ${isActiveRoute("/ai-recommendations")
                     ? "text-[#FFD700] scale-105"
                     : "text-white hover:opacity-70 hover:scale-105"
-                }`}
+                  }`}
               >
                 <span className="text-lg font-medium relative">
                   Lịch sử AI
@@ -444,26 +436,17 @@ const Header = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  router.push(`/profile/${userid}`);
+                  router.push(`/yourbooking`);
                 }}
                 className="flex items-center no-underline text-white hover:opacity-70 transition-opacity duration-300 bg-transparent border border-white rounded-md px-5 py-2 cursor-pointer"
                 aria-label="Profile"
               >
                 <div className="w-6 h-6 mr-2 relative">
-                  <Image
-                    src={
-                      userData?.avatar
-                        ? `https://aitripsystem-api.onrender.com/api/v1/proxy_image/?url=${encodeURIComponent(
-                            userData.avatar
-                          )}`
-                        : "profile.svg"
-                    }
-                    fill
-                    className="rounded-full object-cover"
-                    alt="profile"
-                  />
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                  </svg>
                 </div>
-                <span className="text-base font-medium">Profile</span>
+                <span className="text-base font-medium">Your Booking</span>
               </div>
 
               <button
@@ -510,20 +493,18 @@ const Header = () => {
               />
             </div>
             <div
-              className={`absolute top-[80px] right-0 bg-white min-w-[200px] shadow-lg rounded-md z-50 opacity-0 transition-all duration-300 transform -translate-y-2 ${
-                isDropdownOpen ? "block opacity-100 translate-y-0" : "hidden"
-              }`}
+              className={`absolute top-[80px] right-0 bg-white min-w-[200px] shadow-lg rounded-md z-50 opacity-0 transition-all duration-300 transform -translate-y-2 ${isDropdownOpen ? "block opacity-100 translate-y-0" : "hidden"
+                }`}
             >
               <div className="flex flex-col md:hidden">
                 {/* Menu items for non-logged in users */}
                 {!isLoggedIn && (
                   <>
                     <button
-                      className={`flex items-center p-3 no-underline w-full text-left transition-all duration-300 ${
-                        activeSection === "about"
+                      className={`flex items-center p-3 no-underline w-full text-left transition-all duration-300 ${activeSection === "about"
                           ? "bg-[#FFD700] text-black"
                           : "text-black hover:bg-gray-200"
-                      }`}
+                        }`}
                       onClick={(e) => {
                         // Close dropdown first
                         setIsDropdownOpen(false);
@@ -536,11 +517,10 @@ const Header = () => {
                       About
                     </button>
                     <button
-                      className={`flex items-center p-3 no-underline w-full text-left transition-all duration-300 ${
-                        activeSection === "features"
+                      className={`flex items-center p-3 no-underline w-full text-left transition-all duration-300 ${activeSection === "features"
                           ? "bg-[#FFD700] text-black"
                           : "text-black hover:bg-gray-200"
-                      }`}
+                        }`}
                       onClick={(e) => {
                         // Close dropdown first
                         setIsDropdownOpen(false);
@@ -553,11 +533,10 @@ const Header = () => {
                       Features
                     </button>
                     <button
-                      className={`flex items-center p-3 no-underline w-full text-left transition-all duration-300 ${
-                        activeSection === "contact"
+                      className={`flex items-center p-3 no-underline w-full text-left transition-all duration-300 ${activeSection === "contact"
                           ? "bg-[#FFD700] text-black"
                           : "text-black hover:bg-gray-200"
-                      }`}
+                        }`}
                       onClick={(e) => {
                         // Close dropdown first
                         setIsDropdownOpen(false);
@@ -603,11 +582,10 @@ const Header = () => {
                   <>
                     <div
                       onClick={(e) => handleNavigation("/home", e)}
-                      className={`flex items-center text-black p-3 no-underline hover:bg-gray-200 w-full text-left cursor-pointer transition-all duration-200 ${
-                        isActiveRoute("/home")
+                      className={`flex items-center text-black p-3 no-underline hover:bg-gray-200 w-full text-left cursor-pointer transition-all duration-200 ${isActiveRoute("/home")
                           ? "bg-blue-50 border-l-4 border-[#FFD700] font-semibold"
                           : ""
-                      }`}
+                        }`}
                     >
                       Trang chủ
                       {isActiveRoute("/home") && (
@@ -617,11 +595,10 @@ const Header = () => {
 
                     <div
                       onClick={(e) => handleNavigation("/trips", e)}
-                      className={`flex items-center text-black p-3 no-underline hover:bg-gray-200 w-full text-left cursor-pointer transition-all duration-200 ${
-                        isActiveRoute("/trips")
+                      className={`flex items-center text-black p-3 no-underline hover:bg-gray-200 w-full text-left cursor-pointer transition-all duration-200 ${isActiveRoute("/trips")
                           ? "bg-blue-50 border-l-4 border-[#FFD700] font-semibold"
                           : ""
-                      }`}
+                        }`}
                     >
                       Lộ trình AI
                       {isActiveRoute("/trips") && (
@@ -629,11 +606,10 @@ const Header = () => {
                       )}
                     </div>                    <div
                       onClick={(e) => handleNavigation("/explore", e)}
-                      className={`flex items-center text-black p-3 no-underline hover:bg-gray-200 w-full text-left cursor-pointer transition-all duration-200 ${
-                        isActiveRoute("/explore")
+                      className={`flex items-center text-black p-3 no-underline hover:bg-gray-200 w-full text-left cursor-pointer transition-all duration-200 ${isActiveRoute("/explore")
                           ? "bg-blue-50 border-l-4 border-[#FFD700] font-semibold"
                           : ""
-                      }`}
+                        }`}
                     >
                       Khám phá
                       {isActiveRoute("/explore") && (
@@ -643,11 +619,10 @@ const Header = () => {
 
                     <div
                       onClick={(e) => handleNavigation("/ai-recommendations", e)}
-                      className={`flex items-center text-black p-3 no-underline hover:bg-gray-200 w-full text-left cursor-pointer transition-all duration-200 ${
-                        isActiveRoute("/ai-recommendations")
+                      className={`flex items-center text-black p-3 no-underline hover:bg-gray-200 w-full text-left cursor-pointer transition-all duration-200 ${isActiveRoute("/ai-recommendations")
                           ? "bg-blue-50 border-l-4 border-[#FFD700] font-semibold"
                           : ""
-                      }`}
+                        }`}
                     >
                       Lịch sử AI
                       {isActiveRoute("/ai-recommendations") && (
@@ -670,8 +645,8 @@ const Header = () => {
                         src={
                           userData?.avatar
                             ? `https://aitripsystem-api.onrender.com/api/v1/proxy_image/?url=${encodeURIComponent(
-                                userData.avatar
-                              )}`
+                              userData.avatar
+                            )}`
                             : "profile.svg"
                         }
                         fill
