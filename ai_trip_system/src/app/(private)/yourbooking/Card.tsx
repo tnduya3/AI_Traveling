@@ -30,9 +30,15 @@ interface UserInfo {
 }
 
 export default function BookingCard({
-  idBooking
+  idBooking,
+  idPlace,
+  date,
+  status
 }: {
   idBooking: string;
+  idPlace: string;
+  date: string;
+  status: string;
 }) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
@@ -58,35 +64,35 @@ export default function BookingCard({
   };
 
 
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(`http://127.0.0.1:8000/api/v1/bookings?idBooking=${idBooking}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        }
-      });
+  // const fetchData = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await fetch(`http://127.0.0.1:8000/api/v1/bookings?idBooking=${idBooking}`, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${token}`
+  //       }
+  //     });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('API Error:', {
-          status: response.status,
-          statusText: response.statusText,
-          data: errorData
-        });
-        throw new Error(`API error ${response.status}: ${JSON.stringify(errorData)}`);
-      }
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+  //       console.error('API Error:', {
+  //         status: response.status,
+  //         statusText: response.statusText,
+  //         data: errorData
+  //       });
+  //       throw new Error(`API error ${response.status}: ${JSON.stringify(errorData)}`);
+  //     }
 
-      const json = await response.json();
-      setData(json);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     const json = await response.json();
+  //     setData(json);
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const fetchUserInfo = async () => {
     setLoadingUser(true);
@@ -113,10 +119,7 @@ export default function BookingCard({
   };
 
   useEffect(() => {
-    fetchData();
-  }, [idBooking]);
-
-  useEffect(() => {
+    setIsLoading(false);
     if (data) {
       setEditableBookingData(data);
     }
@@ -162,21 +165,16 @@ export default function BookingCard({
     }
   };
 
-  const formatDate = (dateString: string) => {
-    if (!dateString) return 'Không có thông tin';
-
-    try {
-      const date = new Date(dateString);
-      return date.toLocaleDateString('vi-VN', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    } catch (e) {
-      return dateString;
-    }
+  // Format the date from ISO string to a more readable format
+  const formatDate = (dateStr: string) => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('vi-VN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   };
 
   const handlePlaceClick = () => {
@@ -191,14 +189,6 @@ export default function BookingCard({
     );
   }
 
-  if (!data) {
-    return (
-      <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-md mx-auto">
-        <p className="text-center text-gray-600">Không tìm thấy thông tin đặt chỗ</p>
-      </div>
-    );
-  }
-
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow-md filter backdrop-blur-sm p-4 overflow-hidden w-full md:w-4/5 mx-auto">
       {/* Content section */}
@@ -208,32 +198,33 @@ export default function BookingCard({
             className="font-semibold text-lg text-blue-700 cursor-pointer hover:text-blue-900 hover:underline"
             onClick={handlePlaceClick}
           >
-            {data.placeName || `Địa điểm #${data.idPlace}`}
+            {/* Using idPlace directly */}
+            {`Địa điểm #${idPlace}`}
           </h3>
-          <span className={`px-2 py-1 rounded-full text-xs font-medium ${data.status === "CONFIRMED" ? 'bg-green-100 text-green-800' :
-            data.status === "PENDING" ? 'bg-yellow-100 text-yellow-800' :
-              'bg-red-100 text-red-800'
-            }`}>
-            {data.status === "CONFIRMED" ? 'CONFIRMED' :
-              data.status === "PENDING" ? 'PENDING' : 'CANCELED'}
+          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+            status === "PENDING" ?  'bg-green-100 text-green-800':
+            status === "CONFIRMED" ? 'bg-red-100 text-red-800' :
+          'bg-yellow-100 text-yellow-800'
+          }`}>
+            {status}
           </span>
         </div>
 
         <div className="flex items-center text-gray-700 mb-1">
           <FaMapMarkerAlt className="mr-2 text-sky-600" />
-          <span className="text-sm">Địa điểm ID: {data.idPlace}</span>
+          <span className="text-sm">Địa điểm ID: {idPlace}</span>
         </div>
 
         <div className="flex items-center text-gray-700 mb-1">
           <FaCalendarAlt className="mr-2 text-sky-600" />
           <span className="text-sm">
-            {data.date ? formatDate(data.date) : 'Chưa có thông tin ngày'}
+            {formatDate(date)}
           </span>
         </div>
 
         <div className="flex items-center text-gray-700 mb-4">
           <span className="text-sm font-medium mr-2">Mã đặt chỗ:</span>
-          <span className="text-sm font-bold">{data.idBooking}</span>
+          <span className="text-sm font-bold">{idBooking}</span>
         </div>
 
         {/* Amenities */}
@@ -254,20 +245,20 @@ export default function BookingCard({
 
         {/* Status indicator */}
         <div className="flex items-center">
-          {data.status === "CONFIRMED" ? (
+          {status === "CONFIRMED" ? (
             <>
               <FaCheckCircle className="text-green-500 mr-2" />
               <span className="text-sm text-green-600">Đã xác nhận đặt chỗ của bạn</span>
             </>
-          ) : data.status === "PENDING" ? (
-            <>
-              <FaHourglass className="text-yellow-500 mr-2" />
-              <span className="text-sm text-yellow-600">Đang chờ xác nhận</span>
-            </>
-          ) : (
+          ) : status === "PENDING" ? (
             <>
               <FaTimes className="text-red-500 mr-2" />
               <span className="text-sm text-red-600">Đặt chỗ đã bị hủy</span>
+            </>
+          ) : (
+            <>
+              <FaHourglass className="text-yellow-500 mr-2" />
+              <span className="text-sm text-yellow-600">Đang chờ xác nhận</span>
             </>
           )}
         </div>

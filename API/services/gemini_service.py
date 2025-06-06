@@ -10,10 +10,14 @@ import logging
 # Load environment variables
 load_dotenv()
 
+# Cấu hình log
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 # Configure Gemini API
 gemini_api_key = os.getenv("GEMINI_API_KEY")
 if not gemini_api_key:
-    logging.warning("GEMINI_API_KEY not found in environment variables. Using fallback mode.")
+    logger.warning("GEMINI_API_KEY not found in environment variables. Using fallback mode.")
 else:
     genai.configure(api_key=gemini_api_key)
 
@@ -23,11 +27,11 @@ class GeminiService:
         try:
             if gemini_api_key:
                 self.model = genai.GenerativeModel('gemini-1.5-flash')
-                logging.info("Gemini AI model initialized successfully")
+                logger.info("Gemini AI model initialized successfully")
             else:
-                logging.warning("Gemini API key not found, falling back to local generation")
+                logger.warning("Gemini API key not found, falling back to local generation")
         except Exception as e:
-            logging.error(f"Failed to initialize Gemini model: {e}")
+            logger.error(f"Failed to initialize Gemini model: {e}")
             self.model = None
 
     def generate_travel_recommendation(self, trip_request: dict) -> str:
@@ -47,11 +51,11 @@ class GeminiService:
             if response.text:
                 return response.text
             else:
-                logging.warning("Gemini returned empty response, falling back to local generation")
+                logger.warning("Gemini returned empty response, falling back to local generation")
                 return self._generate_local_recommendation(trip_request)
                 
         except Exception as e:
-            logging.error(f"Error generating recommendation with Gemini: {e}")
+            logger.error(f"Error generating recommendation with Gemini: {e}")
             # Fallback to local generation
             return self._generate_local_recommendation(trip_request)
 

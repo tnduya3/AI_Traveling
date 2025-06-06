@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { AiOutlineExpandAlt } from "react-icons/ai";
 import dynamic from "next/dynamic";
 import { FaClock, FaMapMarkerAlt, FaTag, FaLightbulb, FaStar, FaShare, FaHeart, FaRegHeart, FaMapMarkedAlt, FaUtensils, FaHotel, FaShoppingBag } from "react-icons/fa";
@@ -39,6 +39,7 @@ interface NearbyPlace {
 }
 
 export default function DetailPage() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const idBooking = searchParams.get('idBooking');
   const idPlace = searchParams.get('idPlace');
@@ -148,6 +149,10 @@ export default function DetailPage() {
 
   // Calculate activities based on place type
   const activities = getActivitiesByType(placeData.type);
+
+  const handleBookingNow = () => {
+    router.push(`/booking?idPlace=${placeData.idPlace}&namePlace=${placeData.name}`);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-sky-50 to-blue-100">
@@ -347,7 +352,8 @@ export default function DetailPage() {
           <button className="flex items-center justify-center gap-2 bg-cyan-500 text-white py-3 rounded-lg hover:bg-cyan-600 transition shadow-md">
             <FaMapMarkedAlt /> <span>Xem trên bản đồ</span>
           </button>
-          <button className="flex items-center justify-center gap-2 bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition shadow-md">
+          <button className="flex items-center justify-center gap-2 bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition shadow-md"
+            onClick={handleBookingNow}>
             <FaHotel /> <span>Đặt khách sạn gần đây</span>
           </button>
           <button className="flex items-center justify-center gap-2 bg-gray-200 text-gray-800 py-3 rounded-lg hover:bg-gray-300 transition shadow-md col-span-2 md:col-span-1">

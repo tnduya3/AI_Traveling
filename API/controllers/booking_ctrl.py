@@ -14,7 +14,7 @@ def get_bookings(db: Session = Depends(get_db), current_user = Depends(get_curre
     if not current_user:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
 
-    return booking_repo.get_bookings(db)
+    return booking_repo.get_bookings_by_user(db, current_user.idUser)
 
 @router.get("/bookings", response_model=BookingResponse)
 def get_booking_by_id(idBooking: str, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
@@ -32,7 +32,7 @@ def get_booking_by(select: str, lookup: str, db: Session = Depends(get_db), curr
     if not current_user:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
     
-    booking = booking_repo.get_booking_by(db, select, lookup)
+    booking = booking_repo.get_booking_by(db, select, lookup, current_user)
     if booking == []:
         raise HTTPException(404, "Booking not found")
     
@@ -67,7 +67,7 @@ def create_new_booking(booking: BookingCreate, db: Session = Depends(get_db), cu
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized")
 
     # Tạo booking nếu kiểm tra thành công
-    return booking_repo.create_booking(db, booking)
+    return booking_repo.create_booking(db, booking, current_user)
 
 @router.put("/bookings/", response_model=BookingResponse)
 def update_booking(idBooking: str, booking: BookingUpdate, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
